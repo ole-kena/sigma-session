@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<meta name="description" content="Sigma Session — global trading sessions and ICT killzones in your local time.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<title>Sigma Session</title>
+<style>
+:root{color-scheme:dark;--bg:#080808;--panel:#121212;--line:#29251b;--gold:#e4b84e;--muted:#9b9b9b;--green:#45d483}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f5f5;font:15px system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:650px;margin:auto;padding:20px 16px 40px}
+header{display:flex;justify-content:space-between;align-items:center;margin:5px 0 18px}
+.brand{font-size:11px;letter-spacing:3px;color:var(--gold);font-weight:800}.name{font-size:23px;font-weight:850;letter-spacing:-.7px}
+button{background:#1b1b1b;color:#eee;border:1px solid #393329;border-radius:11px;padding:10px 13px;font-weight:650}
+.gold{color:var(--gold)}.panel{background:linear-gradient(145deg,#171717,#0e0e0e);border:1px solid var(--line);border-radius:17px;padding:16px;margin:12px 0;box-shadow:0 8px 25px #0005}
+.clockbox{text-align:center;padding:23px 10px;background:radial-gradient(ellipse at 80% 20%,#382b12 0%,#121212 55%)}
+.label{font-size:11px;letter-spacing:2px;color:var(--muted)}#clock{font-size:clamp(42px,12vw,64px);font-weight:850;letter-spacing:-3px;font-variant-numeric:tabular-nums;margin:7px 0}
+#date{color:#bbb;font-size:13px}.chips{display:flex;gap:8px;justify-content:center;margin-top:13px;flex-wrap:wrap}.chip{font-size:10px;border:1px solid #44371d;border-radius:20px;padding:5px 9px;color:var(--gold)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:14px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:25px;margin-top:5px}
+h2{font-size:16px;margin:0 0 9px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #292929}.row:last-child{border:0}
+.sub{font-size:12px;color:var(--muted);margin-top:3px}.status{font-size:10px;font-weight:800;border-radius:20px;padding:6px 9px;background:#282828;color:#bbb;white-space:nowrap}.open{background:#123d2b;color:#72e4a4}
+.krow{padding:10px 0;border-bottom:1px solid #292929}.krow:last-child{border:0}.khead{display:flex;justify-content:space-between;gap:10px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}.tools button{flex:1}.foot{text-align:center;padding:22px 5px 5px;color:var(--muted);font-size:11px;letter-spacing:1px}.foot b{color:var(--gold)}
+select{background:#1b1b1b;color:white;border:1px solid #393329;border-radius:9px;padding:9px}
+@media(min-width:520px){.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.two .panel{margin:0}}
+</style>
+</head>
+<body><main>
+<header><div><div class="brand">SIGMA SYSTEMS</div><div class="name">SIGMA <span class="gold">SESSION</span></div></div><button id="install" hidden>Install app</button></header>
+<section class="panel clockbox"><div class="label" id="location">YOUR LOCAL TIME</div><div id="clock">--:--:--</div><div id="date">Loading…</div><div class="chips"><span class="chip" id="tz">LOCAL TIME</span><span class="chip">LIVE</span></div></section>
+<section class="stats">
+<div class="panel stat"><small>ACTIVE SESSIONS</small><strong id="active">—</strong></div>
+<div class="panel stat"><small>NEXT SESSION</small><strong id="next">—</strong><div class="sub" id="countdown"></div></div>
+</section>
+<section class="panel"><h2>🌍 Market sessions</h2><div id="sessions"></div></section>
+<section class="panel"><h2>✦ ICT Killzones</h2><div class="sub" style="margin-bottom:8px">New York local time · DST-aware</div><div id="killzones"></div></section>
+<div class="two">
+<section class="panel"><h2>🎯 SIGMA trading focus</h2><div class="row"><span>London</span><b class="gold">Watch liquidity</b></div><div class="row"><span>New York</span><b class="gold">Watch execution</b></div><div class="row"><span>Asia</span><b>Observe range</b></div></section>
+<section class="panel"><h2>⚙ Quick settings</h2><div class="row"><span>Clock format</span><select id="format"><option value="24">24-hour</option><option value="12">12-hour</option></select></div><div class="row"><span>Session alerts</span><button id="alerts">Enable alerts</button></div><div class="sub" id="alertNote">Alerts require browser permission and may depend on Android battery settings.</div></section>
+</div>
+<div class="foot"><b>SIGMA FROM EARTH.</b><br>EXECUTION FROM ANOTHER PLANET. 🌍<br><br>SIGMA STILL HAS WORK TO DO.</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const zones=[{name:"Tokyo",flag:"🇯🇵",zone:"Asia/Tokyo",start:9,end:18,label:"09:00–18:00 JST"},{name:"London",flag:"🇬🇧",zone:"Europe/London",start:8,end:17,label:"08:00–17:00 UK"},{name:"New York",flag:"🇺🇸",zone:"America/New_York",start:8,end:17,label:"08:00–17:00 ET"}];
+const kills=[{name:"Asia",start:20,end:24},{name:"London",start:2,end:5},{name:"New York AM",start:7,end:10}];
+let fmt=localStorage.getItem("sigma-format")||"24",alerts=localStorage.getItem("sigma-alerts")==="yes",lastAlert="";
+function parts(d,z){let a=new Intl.DateTimeFormat("en-GB",{timeZone:z,hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(d),o={};a.forEach(x=>o[x.type]=x.value);return o}
+function mins(d,z){let p=parts(d,z);return +p.hour*60 + +p.minute}
+function time(d,z){return new Intl.DateTimeFormat("en-GB",{timeZone:z,hour:"2-digit",minute:"2-digit",hour12:fmt==="12"}).format(d)}
+function active(m,s,e){return m>=s*60&&m<e*60}
+function render(){
+ let now=new Date(),localZone=Intl.DateTimeFormat().resolvedOptions().timeZone||"UTC";
+ $("clock").textContent=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:fmt==="12"}).format(now);
+ $("date").textContent=new Intl.DateTimeFormat("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(now);
+ $("location").textContent=localZone.replaceAll("_"," ").toUpperCase();
+ $("tz").textContent="UTC"+(new Intl.DateTimeFormat("en",{timeZoneName:"shortOffset"}).formatToParts(now).find(p=>p.type==="timeZoneName")?.value.replace("GMT","")||"");
+ let count=0,next=null,soon=1e9;
+ $("sessions").innerHTML=zones.map(s=>{
+  let m=mins(now,s.zone),on=active(m,s.start,s.end);if(on)count++;
+  let delta=on?(s.end*60-m):(s.start*60-m+1440)%1440;
+  if(!on&&delta<soon){soon=delta;next=s.name}
+  return `<div class="row"><div><b>${s.flag} ${s.name}</b><div class="sub">${s.label} · ${time(now,s.zone)} local</div></div><span class="status ${on?"open":""}">${on?"● OPEN":"CLOSED"}</span></div>`
+ }).join("");
+ $("active").textContent=count+" / 3";
+ $("next").textContent=next||"—";
+ $("countdown").textContent=next?`Opens in ${Math.floor(soon/60)}h ${soon%60}m`:"All sessions open";
+ let ny=mins(now,"America/New_York");
+ $("killzones").innerHTML=kills.map(k=>{
+  let on=k.start===20?ny>=1200:active(ny,k.start,k.end);
+  return `<div class="krow"><div class="khead"><b>${k.name}</b><span class="status ${on?"open":""}">${on?"● ACTIVE":"INACTIVE"}</span></div><div class="sub">${String(k.start%24).padStart(2,"0")}:00–${String(k.end%24).padStart(2,"0")}:00 New York time</div></div>`
+ }).join("");
+ if(alerts&&Notification.permission==="granted"){
+  let key=now.toISOString().slice(0,10)+"-"+now.getUTCHours()+"-"+now.getUTCMinutes();
+  zones.forEach(s=>{let m=mins(now,s.zone);if(m===s.start*60&&lastAlert!==key+s.name){new Notification("Sigma Session",{body:s.name+" session is now open."});lastAlert=key+s.name}});
+ }
+}
+$("format").value=fmt;$("format").onchange=e=>{fmt=e.target.value;localStorage.setItem("sigma-format",fmt);render()};
+async function toggleAlerts(){
+ if(!("Notification"in window)){ $("alertNote").textContent="Notifications are not supported by this browser.";return}
+ if(!alerts){let p=await Notification.requestPermission();if(p!=="granted"){$("alertNote").textContent="Permission was not granted.";return}alerts=true;localStorage.setItem("sigma-alerts","yes");$("alerts").textContent="Disable alerts";$("alertNote").textContent="Session-open alerts enabled while the app is active."}
+ else{alerts=false;localStorage.removeItem("sigma-alerts");$("alerts").textContent="Enable alerts";$("alertNote").textContent="Alerts are off."}
+}
+$("alerts").textContent=alerts?"Disable alerts":"Enable alerts";$("alerts").onclick=toggleAlerts;
+let installPrompt;$("install").onclick=async()=>{if(installPrompt){installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$("install").hidden=true}};
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;$("install").hidden=false});
+if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));
+render();setInterval(render,1000);
+</script>
+</body></html>
