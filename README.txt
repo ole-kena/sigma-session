@@ -20,3 +20,15 @@ A PWA needs HTTPS (or localhost) for service workers and installation. Opening i
 
 ## Important
 Session windows are reference hours, not broker-specific market hours. Browser notifications may not fire reliably when Android suspends the app. A future native Android build can add reliable scheduled notifications.
+
+
+## V2 dashboard update
+- The top cards are now labeled ACTIVE KZ and NEXT KILLZONE.
+- ACTIVE KZ displays the currently active ICT killzone name and a live countdown to its close.
+- NEXT KILLZONE displays the next upcoming killzone and a live countdown until it opens.
+- Each killzone shows an opening countdown while upcoming.
+- While a killzone is active, a YouTube-style progress bar advances from 0% to 100%, with time remaining to close and elapsed/remaining percentages.
+- Killzone times continue to use New York local time with daylight-saving-aware conversion.
+- Service-worker cache version is updated to sigma-session-v2.
+
+The original market-session cards, clock, date, time-format setting, install prompt, and alert settings are retained. The default Killzone windows remain the original project's values: Asia 20:00–24:00, London 02:00–05:00, and New York AM 07:00–10:00 New York time.

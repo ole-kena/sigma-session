@@ -22,7 +22,7 @@ button{background:#1b1b1b;color:#eee;border:1px solid #393329;border-radius:11px
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:14px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:25px;margin-top:5px}
 h2{font-size:16px;margin:0 0 9px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #292929}.row:last-child{border:0}
 .sub{font-size:12px;color:var(--muted);margin-top:3px}.status{font-size:10px;font-weight:800;border-radius:20px;padding:6px 9px;background:#282828;color:#bbb;white-space:nowrap}.open{background:#123d2b;color:#72e4a4}
-.krow{padding:10px 0;border-bottom:1px solid #292929}.krow:last-child{border:0}.khead{display:flex;justify-content:space-between;gap:10px}
+.krow{padding:12px 0;border-bottom:1px solid #292929}.krow:last-child{border:0}.khead{display:flex;justify-content:space-between;align-items:center;gap:10px}.kmeta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:7px}.kcount{font-size:12px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;white-space:nowrap}.kbar{height:7px;background:#303030;border-radius:20px;overflow:hidden;margin-top:10px}.kfill{height:100%;width:0;background:linear-gradient(90deg,#45d483,#a8f2c5);border-radius:20px;transition:width .45s linear}.krow.active-kz{padding-left:10px;padding-right:10px;border-radius:11px;background:linear-gradient(90deg,#123d2b33,transparent)}
 .tools{display:flex;gap:8px;flex-wrap:wrap}.tools button{flex:1}.foot{text-align:center;padding:22px 5px 5px;color:var(--muted);font-size:11px;letter-spacing:1px}.foot b{color:var(--gold)}
 select{background:#1b1b1b;color:white;border:1px solid #393329;border-radius:9px;padding:9px}
 @media(min-width:520px){.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.two .panel{margin:0}}
@@ -32,8 +32,8 @@ select{background:#1b1b1b;color:white;border:1px solid #393329;border-radius:9px
 <header><div><div class="brand">SIGMA SYSTEMS</div><div class="name">SIGMA <span class="gold">SESSION</span></div></div><button id="install" hidden>Install app</button></header>
 <section class="panel clockbox"><div class="label" id="location">YOUR LOCAL TIME</div><div id="clock">--:--:--</div><div id="date">Loading…</div><div class="chips"><span class="chip" id="tz">LOCAL TIME</span><span class="chip">LIVE</span></div></section>
 <section class="stats">
-<div class="panel stat"><small>ACTIVE SESSIONS</small><strong id="active">—</strong></div>
-<div class="panel stat"><small>NEXT SESSION</small><strong id="next">—</strong><div class="sub" id="countdown"></div></div>
+<div class="panel stat"><small>ACTIVE KZ</small><strong id="active">—</strong><div class="sub" id="activeDetail">No active killzone</div></div>
+<div class="panel stat"><small>NEXT KILLZONE</small><strong id="next">—</strong><div class="sub" id="countdown">—</div></div>
 </section>
 <section class="panel"><h2>🌍 Market sessions</h2><div id="sessions"></div></section>
 <section class="panel"><h2>✦ ICT Killzones</h2><div class="sub" style="margin-bottom:8px">New York local time · DST-aware</div><div id="killzones"></div></section>
@@ -51,29 +51,90 @@ function parts(d,z){let a=new Intl.DateTimeFormat("en-GB",{timeZone:z,hour:"2-di
 function mins(d,z){let p=parts(d,z);return +p.hour*60 + +p.minute}
 function time(d,z){return new Intl.DateTimeFormat("en-GB",{timeZone:z,hour:"2-digit",minute:"2-digit",hour12:fmt==="12"}).format(d)}
 function active(m,s,e){return m>=s*60&&m<e*60}
+function duration(ms){
+ let total=Math.max(0,Math.floor(ms/1000));
+ let h=Math.floor(total/3600),m=Math.floor((total%3600)/60),s=total%60;
+ return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+}
+function nyDateParts(date){
+ let p=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",year:"numeric",month:"numeric",day:"numeric"}).formatToParts(date),o={};
+ p.forEach(x=>o[x.type]=Number(x.value));return o;
+}
+function nyWallTime(y,mo,d,h){
+ // Resolve a New York wall-clock time to a real instant, respecting EST/EDT.
+ const target=Date.UTC(y,mo-1,d,h,0,0);let guess=target;
+ for(let i=0;i<5;i++){
+  let p=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric",hourCycle:"h23"}).formatToParts(new Date(guess)),o={};
+  p.forEach(x=>o[x.type]=Number(x.value));
+  const represented=Date.UTC(o.year,o.month-1,o.day,o.hour,o.minute,o.second);
+  guess+=target-represented;
+ }
+ return new Date(guess);
+}
+function getKillzoneWindows(now){
+ const today=nyDateParts(now),base=new Date(Date.UTC(today.year,today.month-1,today.day)),all=[];
+ for(let offset=-1;offset<=3;offset++){
+  const day=new Date(base);day.setUTCDate(day.getUTCDate()+offset);
+  const y=day.getUTCFullYear(),mo=day.getUTCMonth()+1,d=day.getUTCDate();
+  for(const k of kills){
+   const start=nyWallTime(y,mo,d,k.start);
+   const endDay=new Date(day);
+   if(k.end>=24)endDay.setUTCDate(endDay.getUTCDate()+1);
+   const endHour=k.end>=24?k.end-24:k.end;
+   const end=nyWallTime(endDay.getUTCFullYear(),endDay.getUTCMonth()+1,endDay.getUTCDate(),endHour);
+   all.push({name:k.name,start,end,dayKey:`${y}-${String(mo).padStart(2,"0")}-${String(d).padStart(2,"0")}`});
+  }
+ }
+ return all.sort((a,b)=>a.start-b.start);
+}
 function render(){
  let now=new Date(),localZone=Intl.DateTimeFormat().resolvedOptions().timeZone||"UTC";
  $("clock").textContent=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:fmt==="12"}).format(now);
  $("date").textContent=new Intl.DateTimeFormat("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(now);
  $("location").textContent=localZone.replaceAll("_"," ").toUpperCase();
  $("tz").textContent="UTC"+(new Intl.DateTimeFormat("en",{timeZoneName:"shortOffset"}).formatToParts(now).find(p=>p.type==="timeZoneName")?.value.replace("GMT","")||"");
- let count=0,next=null,soon=1e9;
+
+ // Keep the original Tokyo/London/New York market-session section intact.
  $("sessions").innerHTML=zones.map(s=>{
-  let m=mins(now,s.zone),on=active(m,s.start,s.end);if(on)count++;
-  let delta=on?(s.end*60-m):(s.start*60-m+1440)%1440;
-  if(!on&&delta<soon){soon=delta;next=s.name}
-  return `<div class="row"><div><b>${s.flag} ${s.name}</b><div class="sub">${s.label} · ${time(now,s.zone)} local</div></div><span class="status ${on?"open":""}">${on?"● OPEN":"CLOSED"}</span></div>`
+  let m=mins(now,s.zone),on=active(m,s.start,s.end);
+  return `<div class="row"><div><b>${s.flag} ${s.name}</b><div class="sub">${s.label} · ${time(now,s.zone)} local</div></div><span class="status ${on?"open":""}">${on?"● OPEN":"CLOSED"}</span></div>`;
  }).join("");
- $("active").textContent=count+" / 3";
- $("next").textContent=next||"—";
- $("countdown").textContent=next?`Opens in ${Math.floor(soon/60)}h ${soon%60}m`:"All sessions open";
- let ny=mins(now,"America/New_York");
- $("killzones").innerHTML=kills.map(k=>{
-  let on=k.start===20?ny>=1200:active(ny,k.start,k.end);
-  return `<div class="krow"><div class="khead"><b>${k.name}</b><span class="status ${on?"open":""}">${on?"● ACTIVE":"INACTIVE"}</span></div><div class="sub">${String(k.start%24).padStart(2,"0")}:00–${String(k.end%24).padStart(2,"0")}:00 New York time</div></div>`
+
+ // Active and next Killzone are calculated from New York local time (DST-aware).
+ const windows=getKillzoneWindows(now);
+ const activeKz=windows.find(w=>now>=w.start&&now<w.end);
+ const nextKz=windows.find(w=>w.start>now);
+ $("active").textContent=activeKz?activeKz.name:"—";
+ $("activeDetail").textContent=activeKz?`Ends in ${duration(activeKz.end-now)}`:"No active killzone";
+ $("next").textContent=nextKz?nextKz.name:"—";
+ $("countdown").textContent=nextKz?`Opens in ${duration(nextKz.start-now)}`:"No upcoming killzone";
+
+ // Show today's three Killzones. Before opening, count down to open;
+ // while active, show time to close and an animated elapsed-time bar.
+ const nyToday=nyDateParts(now);
+ const todayKey=`${nyToday.year}-${String(nyToday.month).padStart(2,"0")}-${String(nyToday.day).padStart(2,"0")}`;
+ const todayWindows=windows.filter(w=>w.dayKey===todayKey);
+ $("killzones").innerHTML=todayWindows.map(w=>{
+  const on=now>=w.start&&now<w.end;
+  const upcoming=w.start>now;
+  const progress=on?Math.max(0,Math.min(100,(now-w.start)/(w.end-w.start)*100)):0;
+  let countdownText="";
+  if(on) countdownText=`${duration(w.end-now)} left to close`;
+  else if(upcoming) countdownText=`Opens in ${duration(w.start-now)}`;
+  else {
+   const tomorrow=windows.find(x=>x.name===w.name&&x.start>now&&x.dayKey!==todayKey);
+   countdownText=tomorrow?`Opens in ${duration(tomorrow.start-now)}`:"Closed";
+  }
+  const statusText=on?"● ACTIVE":upcoming?"UPCOMING":"CLOSED";
+  return `<div class="krow ${on?"active-kz":""}">
+   <div class="khead"><b>${w.name}</b><span class="status ${on?"open":""}">${statusText}</span></div>
+   <div class="kmeta"><span class="sub">${time(w.start,"America/New_York")}–${time(w.end,"America/New_York")} New York time</span><span class="kcount">${countdownText}</span></div>
+   ${on?`<div class="kbar"><div class="kfill" style="width:${progress}%"></div></div><div class="kmeta"><span class="sub">${Math.floor(progress)}% elapsed</span><span class="sub">${Math.ceil(100-progress)}% remaining</span></div>`:""}
+  </div>`;
  }).join("");
- if(alerts&&Notification.permission==="granted"){
-  let key=now.toISOString().slice(0,10)+"-"+now.getUTCHours()+"-"+now.getUTCMinutes();
+
+ if(alerts&&"Notification"in window&&Notification.permission==="granted"){
+  const key=now.toISOString().slice(0,10)+"-"+now.getUTCHours()+"-"+now.getUTCMinutes();
   zones.forEach(s=>{let m=mins(now,s.zone);if(m===s.start*60&&lastAlert!==key+s.name){new Notification("Sigma Session",{body:s.name+" session is now open."});lastAlert=key+s.name}});
  }
 }
