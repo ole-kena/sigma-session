@@ -73,7 +73,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 </section>
 
 <section id="killzones" class="view">
- <section class="panel"><h2 class="sectiontitle">ICT KILLZONE CONTROL</h2><div class="sub">Session windows are evaluated in New York local time, including daylight-saving changes. Adjust the hours below to match your own model.</div><div id="kzList"></div></section>
+ <section class="panel"><h2 class="sectiontitle">ICT KILLZONE CONTROL</h2><div class="sub">You can adjust The time killzone end and start.</div><div id="kzList"></div></section>
  <section class="panel"><h2 class="sectiontitle">CUSTOM KILLZONE TIMES</h2>
   <div class="field"><label>ASIA START (NEW YORK HOUR)</label><input id="asiaStart" type="number" min="0" max="23" value="20"></div>
   <div class="grid2"><div class="field"><label>LONDON START</label><input id="londonStart" type="number" min="0" max="23" value="2"></div><div class="field"><label>LONDON END</label><input id="londonEnd" type="number" min="0" max="23" value="5"></div></div>
@@ -94,13 +94,13 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 </section>
 
 <section id="tools" class="view">
- <section class="panel"><h2 class="sectiontitle">SIGMA LOT SIZE CALCULATOR</h2><p class="sub">Integrated from your supplied SIGMA LOTS CALCULATOR V1.4. Estimates risk-based position size using its stated contract assumptions.</p>
+ <section class="panel"><h2 class="sectiontitle">SIGMA LOT SIZE CALCULATOR</h2><p class="sub"></p>
   <div class="grid2"><div class="field"><label>ACCOUNT BALANCE (USD)</label><input id="balance" type="number" min="0" step="any" value="670"></div><div class="field"><label>RISK (%)</label><input id="risk" type="number" min="0" max="100" step="any" value="1"></div></div>
   <div class="field"><label>TRADING INSTRUMENT</label><select id="pair"><option value="XAUUSD">XAUUSD — Gold</option><option value="EURUSD">EURUSD</option><option value="GBPUSD">GBPUSD</option><option value="AUDUSD">AUDUSD</option><option value="NZDUSD">NZDUSD</option><option value="USDJPY">USDJPY</option><option value="USDCAD">USDCAD</option><option value="USDCHF">USDCHF</option></select></div>
   <div class="grid2"><div class="field"><label>ENTRY PRICE</label><input id="entry" type="number" step="any" placeholder="e.g. 2650.00"></div><div class="field"><label>STOP-LOSS PRICE</label><input id="stop" type="number" step="any" placeholder="e.g. 2645.00"></div></div>
   <button class="btn" id="calculate">CALCULATE LOT SIZE</button><div class="warning" id="calcError" role="alert"></div>
   <div class="result" id="calcResult" aria-live="polite"><div class="eyebrow">CALCULATED LOT SIZE</div><div class="lotvalue" id="lots">—</div><div class="sub" id="lotNote">Rounded down to 0.01</div><div class="sub" id="riskNote" style="margin-top:8px"></div></div>
-  <p class="sub" style="margin-top:13px">Assumptions from your calculator: XAUUSD = 100 troy ounces per standard lot; listed FX pairs = 100,000 base units. Lot size rounds down to 0.01. USD account only. Broker contract size, tick value, minimum volume, commission, spread and slippage can change actual risk. Verify before placing a trade.</p>
+  <p class="sub" style="margin-top:13px"></p>
  </section>
 </section>
 
@@ -110,8 +110,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
   <div class="row"><div><b>Session notifications</b><div class="sub" id="alertStatus">Browser notification permission required</div></div><button class="smallbtn" id="alertBtn">Enable</button></div>
   <div class="row"><div><b>Weekend market schedule</b><div class="sub">Sunday 17:00 to Friday 17:00 New York time (default estimate)</div></div><span class="tag">NY TIME</span></div>
   <div class="row"><div><b>App version</b><span class="sub">Independent V2 PWA · V1 archive preserved</span></div><span class="gold">V2.0</span></div>
-  <p class="sub">Important: weekend opening and closing hours vary by broker and instrument. This build uses a common XAUUSD schedule as an estimate; compare it with your broker's MT5 symbol specifications. PWA notifications are not guaranteed to fire while the browser is fully closed. Native Android alarms are a later Capacitor phase.</p>
- </section>
+ </sectio>
 </section>
 </main>
 
