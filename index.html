@@ -4,150 +4,234 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080808">
-<meta name="description" content="Sigma Session — global trading sessions and ICT killzones in your local time.">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
-<title>Sigma Session</title>
+<meta name="description" content="SIGMA SESSION V2 — ICT killzones, trading sessions, lot sizing and market timing.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<title>SIGMA SESSION V2</title>
 <style>
-:root{color-scheme:dark;--bg:#080808;--panel:#121212;--line:#29251b;--gold:#e4b84e;--muted:#9b9b9b;--green:#45d483}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f5f5;font:15px system-ui,-apple-system,Segoe UI,sans-serif}
-main{max-width:650px;margin:auto;padding:20px 16px 40px}
-header{display:flex;justify-content:space-between;align-items:center;margin:5px 0 18px}
-.brand{font-size:11px;letter-spacing:3px;color:var(--gold);font-weight:800}.name{font-size:23px;font-weight:850;letter-spacing:-.7px}
-button{background:#1b1b1b;color:#eee;border:1px solid #393329;border-radius:11px;padding:10px 13px;font-weight:650}
-.gold{color:var(--gold)}.panel{background:linear-gradient(145deg,#171717,#0e0e0e);border:1px solid var(--line);border-radius:17px;padding:16px;margin:12px 0;box-shadow:0 8px 25px #0005}
-.clockbox{text-align:center;padding:23px 10px;background:radial-gradient(ellipse at 80% 20%,#382b12 0%,#121212 55%)}
-.label{font-size:11px;letter-spacing:2px;color:var(--muted)}#clock{font-size:clamp(42px,12vw,64px);font-weight:850;letter-spacing:-3px;font-variant-numeric:tabular-nums;margin:7px 0}
-#date{color:#bbb;font-size:13px}.chips{display:flex;gap:8px;justify-content:center;margin-top:13px;flex-wrap:wrap}.chip{font-size:10px;border:1px solid #44371d;border-radius:20px;padding:5px 9px;color:var(--gold)}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:14px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:25px;margin-top:5px}
-h2{font-size:16px;margin:0 0 9px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #292929}.row:last-child{border:0}
-.sub{font-size:12px;color:var(--muted);margin-top:3px}.status{font-size:10px;font-weight:800;border-radius:20px;padding:6px 9px;background:#282828;color:#bbb;white-space:nowrap}.open{background:#123d2b;color:#72e4a4}
-.krow{padding:12px 0;border-bottom:1px solid #292929}.krow:last-child{border:0}.khead{display:flex;justify-content:space-between;align-items:center;gap:10px}.kmeta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:7px}.kcount{font-size:12px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;white-space:nowrap}.kbar{height:7px;background:#303030;border-radius:20px;overflow:hidden;margin-top:10px}.kfill{height:100%;width:0;background:linear-gradient(90deg,#45d483,#a8f2c5);border-radius:20px;transition:width .45s linear}.krow.active-kz{padding-left:10px;padding-right:10px;border-radius:11px;background:linear-gradient(90deg,#123d2b33,transparent)}
-.tools{display:flex;gap:8px;flex-wrap:wrap}.tools button{flex:1}.foot{text-align:center;padding:22px 5px 5px;color:var(--muted);font-size:11px;letter-spacing:1px}.foot b{color:var(--gold)}
-select{background:#1b1b1b;color:white;border:1px solid #393329;border-radius:9px;padding:9px}
-@media(min-width:520px){.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.two .panel{margin:0}}
+:root{color-scheme:dark;--bg:#070707;--panel:#11110f;--panel2:#181713;--line:#39301d;--gold:#e3b84f;--gold2:#f8df9a;--muted:#a6a29a;--text:#f7f4ed;--green:#67e3a0;--red:#ff7777;--blue:#9cc7ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#342710 0,transparent 42%),radial-gradient(ellipse at 100% 55%,#17130b 0,transparent 38%),var(--bg);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}main{width:min(100% - 24px,620px);margin:auto;padding:18px 0 calc(100px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;justify-content:space-between;padding:8px 4px 16px}.brand{display:flex;align-items:center;gap:10px}.brand img{width:43px;height:43px;border-radius:12px;object-fit:cover;border:1px solid #8e6b2b}.brand strong{display:block;letter-spacing:.12em;font-size:15px}.brand small{display:block;color:var(--gold);font-size:10px;letter-spacing:.19em;margin-top:2px}
+.iconbtn{border:1px solid var(--line);background:#17150f;color:var(--gold2);border-radius:12px;padding:10px 12px}
+.panel{background:linear-gradient(145deg,#191813,#0e0e0c);border:1px solid var(--line);border-radius:19px;padding:16px;margin:12px 0;box-shadow:0 12px 30px #0007,inset 0 1px #ffffff08}
+.clock{text-align:center;padding:20px 12px;background:radial-gradient(ellipse at 50% 0%,#493713 0,transparent 65%),linear-gradient(145deg,#17140d,#0c0c0b);position:relative;overflow:hidden}
+.eyebrow{font-size:10px;letter-spacing:.2em;color:var(--muted);font-weight:750}.time{font-size:clamp(43px,12vw,66px);font-weight:850;letter-spacing:-3px;font-variant-numeric:tabular-nums;margin:5px 0;line-height:1.12}.date{font-size:12px;color:#c9c2b4}.timezone{display:inline-block;margin-top:11px;border:1px solid #55421f;border-radius:30px;padding:5px 10px;color:var(--gold2);font-size:10px;letter-spacing:.12em}
+.hero{border-color:#70521d;background:radial-gradient(ellipse at 85% 20%,#4a3512 0,transparent 44%),linear-gradient(145deg,#1b170d,#0d0d0b);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:-60% -30%;background:linear-gradient(110deg,transparent 43%,#eac35a12 49%,#fff4c122 50%,transparent 57%);transform:translateX(-70%);animation:ambient 7s ease-in-out infinite;pointer-events:none}
+@keyframes ambient{0%,25%{transform:translateX(-70%)}75%,100%{transform:translateX(70%)}}
+.marketline{display:flex;align-items:center;justify-content:space-between;gap:10px}.pill{font-size:10px;font-weight:850;letter-spacing:.1em;border-radius:30px;padding:6px 10px;background:#27231a;color:var(--muted);white-space:nowrap}.pill.open{background:#103322;color:var(--green);border:1px solid #246c48}.pill.closed{background:#371c20;color:#ff9a9a;border:1px solid #6e353d}
+.markettitle{font-size:clamp(23px,6vw,32px);font-weight:900;letter-spacing:.02em;margin:10px 0 3px}.gold{color:var(--gold)}.countdown{font-size:clamp(30px,8vw,43px);font-weight:850;font-variant-numeric:tabular-nums;letter-spacing:-1px;margin:5px 0;color:var(--gold2)}.sub{font-size:12px;color:var(--muted);line-height:1.5}
+.progress{height:9px;border-radius:20px;background:#39352b;overflow:hidden;margin:12px 0 7px;position:relative}.progress>span{display:block;height:100%;width:0;background:linear-gradient(90deg,#9e6d1b,#ffe08a,#c08b2e);border-radius:20px;box-shadow:0 0 13px #f4c85b99;position:relative;transition:width .8s linear}.progress>span:after{content:"";position:absolute;right:-2px;top:-4px;width:17px;height:17px;border-radius:50%;background:#fff0b4;box-shadow:0 0 13px 4px #f6c75a}
+.progresslabels{display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
+.sectiontitle{font-size:13px;font-weight:850;letter-spacing:.12em;margin:0 0 12px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #29261f}.row:last-child{border:0}.row b{font-size:14px}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#11110f;border:1px solid #30291c;border-radius:15px;padding:13px}.stat small{color:var(--muted);font-size:10px;letter-spacing:.1em}.stat strong{display:block;font-size:24px;margin-top:5px;font-variant-numeric:tabular-nums}
+.kzone{padding:13px 0;border-bottom:1px solid #29261f}.kzone:last-child{border:0}.khead{display:flex;justify-content:space-between;align-items:center;gap:10px}.kname{font-weight:800}.kmeta{color:var(--muted);font-size:11px;margin-top:4px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#777;margin-right:7px}.dot.live{background:var(--green);box-shadow:0 0 0 0 #67e3a088;animation:pulse 1.8s infinite}@keyframes pulse{70%{box-shadow:0 0 0 9px #67e3a000}}
+.nav{position:fixed;z-index:20;bottom:0;left:0;right:0;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:#090909ed;backdrop-filter:blur(18px);border-top:1px solid #3c321e;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}.nav button{border:0;background:transparent;color:#969188;border-radius:12px;padding:8px 2px;font-size:10px;font-weight:700}.nav button span{display:block;font-size:19px;margin-bottom:3px}.nav button.active{color:var(--gold2);background:#282012}
+.view{display:none}.view.active{display:block}.field{margin:12px 0}.field label{display:block;color:#d1c7b3;font-size:11px;font-weight:750;letter-spacing:.07em;margin:0 0 7px}.field input,.field select{width:100%;background:#0b0b0a;color:var(--text);border:1px solid #49402d;border-radius:11px;padding:13px 12px;outline:none}.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px #e3b84f18}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{width:100%;border:1px solid #f1d28b;border-radius:12px;padding:14px;background:linear-gradient(100deg,#f0d99f,#c99a3b);color:#21190b;font-size:12px;font-weight:900;letter-spacing:.12em;margin-top:8px}.result{display:none;margin-top:14px;background:#0b1711;border:1px solid #286347;border-radius:14px;padding:16px;text-align:center}.result.show{display:block}.lotvalue{font-size:40px;font-weight:900;color:var(--green);font-variant-numeric:tabular-nums}.warning{display:none;background:#351d23;border:1px solid #713c45;color:#ffd5d5;padding:11px;border-radius:10px;font-size:12px;margin-top:10px}.warning.show{display:block}
+.smallbtn{background:#211d14;color:var(--gold2);border:1px solid #5b4828;border-radius:9px;padding:9px 11px;font-size:11px;font-weight:750}.muted{color:var(--muted)}.foot{text-align:center;color:#777064;font-size:10px;letter-spacing:.12em;padding:24px 5px}.event{padding:12px 0;border-bottom:1px solid #29261f}.event:last-child{border:0}.tag{font-size:9px;border:1px solid #6b5127;color:var(--gold2);padding:4px 7px;border-radius:20px}
+@media(min-width:560px){main{padding-top:25px}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.two .panel{margin:12px 0}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
-<body><main>
-<header><div><div class="brand">SIGMA SYSTEMS</div><div class="name">SIGMA <span class="gold">SESSION</span></div></div><button id="install" hidden>Install app</button></header>
-<section class="panel clockbox"><div class="label" id="location">YOUR LOCAL TIME</div><div id="clock">--:--:--</div><div id="date">Loading…</div><div class="chips"><span class="chip" id="tz">LOCAL TIME</span><span class="chip">LIVE</span></div></section>
-<section class="stats">
-<div class="panel stat"><small>ACTIVE KZ</small><strong id="active">—</strong><div class="sub" id="activeDetail">No active killzone</div></div>
-<div class="panel stat"><small>NEXT KILLZONE</small><strong id="next">—</strong><div class="sub" id="countdown">—</div></div>
+<body>
+<main>
+<header>
+ <div class="brand"><img src="./icon-192.png" alt="SIGMA emblem"><div><strong>SIGMA SESSION <span class="gold">V2</span></strong><small>ICT TRADING COMPANION</small></div></div>
+ <button class="iconbtn" id="installBtn" hidden>＋ Install</button>
+</header>
+
+<section id="home" class="view active">
+ <section class="panel clock">
+  <div class="eyebrow">YOUR LOCAL TIME</div><div class="time" id="clock">--:--:--</div><div class="date" id="date">Loading local time…</div><div class="timezone" id="tz">LOCAL TIME</div>
+ </section>
+ <section class="panel hero" id="marketCard">
+  <div class="marketline"><span class="eyebrow">XAU/USD MARKET STATUS</span><span class="pill" id="marketBadge">CHECKING</span></div>
+  <div class="markettitle" id="marketTitle">Checking market…</div>
+  <div class="eyebrow" id="marketCaption">BROKER HOURS CAN VARY</div>
+  <div class="eyebrow" style="margin-top:18px" id="marketTimerLabel">TIME REMAINING</div>
+  <div class="countdown" id="marketTimer">--:--:--</div>
+  <div class="progress"><span id="marketProgress"></span></div>
+  <div class="progresslabels"><span id="marketStart">MARKET OPEN</span><span id="marketPct">—</span><span id="marketEnd">MARKET CLOSE</span></div>
+ </section>
+ <div class="statgrid">
+  <div class="stat"><small>ACTIVE KILLZONE</small><strong id="activeKz">—</strong><div class="sub" id="activeKzSub">New York time</div></div>
+  <div class="stat"><small>NEXT KILLZONE</small><strong id="nextKz">—</strong><div class="sub" id="nextKzSub">Calculating…</div></div>
+ </div>
+ <section class="panel" id="activePanel">
+  <div class="marketline"><h2 class="sectiontitle">✦ ACTIVE KILLZONE</h2><span class="pill open" id="activeBadge">LIVE TRACKING</span></div>
+  <div class="markettitle gold" id="activeName">—</div>
+  <div class="countdown" id="activeTimer">--:--:--</div>
+  <div class="eyebrow">TIME REMAINING</div>
+  <div class="progress"><span id="kzProgress"></span></div>
+  <div class="progresslabels"><span id="kzStart">START</span><span id="kzPct">—</span><span id="kzEnd">END</span></div>
+ </section>
+ <section class="panel">
+  <h2 class="sectiontitle">NEXT KILLZONE</h2><div class="marketline"><div><b id="nextName">—</b><div class="sub" id="nextTime">—</div></div><div class="countdown" style="font-size:23px" id="nextTimer">--:--:--</div></div>
+ </section>
+ <div class="foot">SIGMA FROM EARTH.<br><span class="gold">EXECUTION FROM ANOTHER PLANET.</span></div>
 </section>
-<section class="panel"><h2>🌍 Market sessions</h2><div id="sessions"></div></section>
-<section class="panel"><h2>✦ ICT Killzones</h2><div class="sub" style="margin-bottom:8px">New York local time · DST-aware</div><div id="killzones"></div></section>
-<div class="two">
-<section class="panel"><h2>⚙ Quick settings</h2><div class="row"><span>Clock format</span><select id="format"><option value="24">24-hour</option><option value="12">12-hour</option></select></div><div class="row"><span>Session alerts</span><button id="alerts">Enable alerts</button></div><div class="sub" id="alertNote">Alerts require browser permission and may depend on Android battery settings.</div></section>
-</div>
-<div class="foot"><b>SIGMA FROM EARTH.</b><br>EXECUTION FROM ANOTHER PLANET. 🌍<br><br>SIGMA STILL HAS WORK TO DO.</div>
+
+<section id="killzones" class="view">
+ <section class="panel"><h2 class="sectiontitle">ICT KILLZONE CONTROL</h2><div class="sub">Session windows are evaluated in New York local time, including daylight-saving changes. Adjust the hours below to match your own model.</div><div id="kzList"></div></section>
+ <section class="panel"><h2 class="sectiontitle">CUSTOM KILLZONE TIMES</h2>
+  <div class="field"><label>ASIA START (NEW YORK HOUR)</label><input id="asiaStart" type="number" min="0" max="23" value="20"></div>
+  <div class="grid2"><div class="field"><label>LONDON START</label><input id="londonStart" type="number" min="0" max="23" value="2"></div><div class="field"><label>LONDON END</label><input id="londonEnd" type="number" min="0" max="23" value="5"></div></div>
+  <div class="grid2"><div class="field"><label>NEW YORK START</label><input id="nyStart" type="number" min="0" max="23" value="7"></div><div class="field"><label>NEW YORK END</label><input id="nyEnd" type="number" min="0" max="23" value="10"></div></div>
+  <button class="btn" id="saveKz">SAVE KILLZONE TIMES</button>
+  <div class="sub" style="margin-top:10px">Default windows are carried over from the supplied V1 project. Confirm these against your preferred ICT schedule.</div>
+ </section>
+</section>
+
+<section id="calendar" class="view">
+ <section class="panel"><h2 class="sectiontitle">ECONOMIC CALENDAR</h2><span class="tag">CALENDAR FOUNDATION</span>
+  <p class="sub">This first build provides the calendar area and event structure. It does not yet fetch live economic data. Add or review events manually until a trusted calendar data source is integrated.</p>
+  <div class="field"><label>EVENT TITLE</label><input id="eventTitle" placeholder="e.g. US CPI"></div>
+  <div class="grid2"><div class="field"><label>DATE & TIME (YOUR LOCAL)</label><input id="eventDate" type="datetime-local"></div><div class="field"><label>IMPACT</label><select id="eventImpact"><option>High</option><option>Medium</option><option>Low</option></select></div></div>
+  <button class="btn" id="addEvent">ADD EVENT</button>
+  <div id="eventList" style="margin-top:12px"></div>
+ </section>
+</section>
+
+<section id="tools" class="view">
+ <section class="panel"><h2 class="sectiontitle">SIGMA LOT SIZE CALCULATOR</h2><p class="sub">Integrated from your supplied SIGMA LOTS CALCULATOR V1.4. Estimates risk-based position size using its stated contract assumptions.</p>
+  <div class="grid2"><div class="field"><label>ACCOUNT BALANCE (USD)</label><input id="balance" type="number" min="0" step="any" value="670"></div><div class="field"><label>RISK (%)</label><input id="risk" type="number" min="0" max="100" step="any" value="1"></div></div>
+  <div class="field"><label>TRADING INSTRUMENT</label><select id="pair"><option value="XAUUSD">XAUUSD — Gold</option><option value="EURUSD">EURUSD</option><option value="GBPUSD">GBPUSD</option><option value="AUDUSD">AUDUSD</option><option value="NZDUSD">NZDUSD</option><option value="USDJPY">USDJPY</option><option value="USDCAD">USDCAD</option><option value="USDCHF">USDCHF</option></select></div>
+  <div class="grid2"><div class="field"><label>ENTRY PRICE</label><input id="entry" type="number" step="any" placeholder="e.g. 2650.00"></div><div class="field"><label>STOP-LOSS PRICE</label><input id="stop" type="number" step="any" placeholder="e.g. 2645.00"></div></div>
+  <button class="btn" id="calculate">CALCULATE LOT SIZE</button><div class="warning" id="calcError" role="alert"></div>
+  <div class="result" id="calcResult" aria-live="polite"><div class="eyebrow">CALCULATED LOT SIZE</div><div class="lotvalue" id="lots">—</div><div class="sub" id="lotNote">Rounded down to 0.01</div><div class="sub" id="riskNote" style="margin-top:8px"></div></div>
+  <p class="sub" style="margin-top:13px">Assumptions from your calculator: XAUUSD = 100 troy ounces per standard lot; listed FX pairs = 100,000 base units. Lot size rounds down to 0.01. USD account only. Broker contract size, tick value, minimum volume, commission, spread and slippage can change actual risk. Verify before placing a trade.</p>
+ </section>
+</section>
+
+<section id="settings" class="view">
+ <section class="panel"><h2 class="sectiontitle">APP SETTINGS</h2>
+  <div class="row"><div><b>Clock format</b><div class="sub">12-hour or 24-hour local time</div></div><select id="clockFormat"><option value="24">24-hour</option><option value="12">12-hour</option></select></div>
+  <div class="row"><div><b>Session notifications</b><div class="sub" id="alertStatus">Browser notification permission required</div></div><button class="smallbtn" id="alertBtn">Enable</button></div>
+  <div class="row"><div><b>Weekend market schedule</b><div class="sub">Sunday 17:00 to Friday 17:00 New York time (default estimate)</div></div><span class="tag">NY TIME</span></div>
+  <div class="row"><div><b>App version</b><span class="sub">Independent V2 PWA · V1 archive preserved</span></div><span class="gold">V2.0</span></div>
+  <p class="sub">Important: weekend opening and closing hours vary by broker and instrument. This build uses a common XAUUSD schedule as an estimate; compare it with your broker's MT5 symbol specifications. PWA notifications are not guaranteed to fire while the browser is fully closed. Native Android alarms are a later Capacitor phase.</p>
+ </section>
+</section>
 </main>
+
+<nav class="nav" aria-label="Main navigation">
+ <button class="active" data-view="home"><span>⌂</span>Home</button>
+ <button data-view="killzones"><span>◷</span>Killzones</button>
+ <button data-view="calendar"><span>▦</span>Calendar</button>
+ <button data-view="tools"><span>▤</span>Tools</button>
+ <button data-view="settings"><span>⚙</span>Settings</button>
+</nav>
+
 <script>
 const $=id=>document.getElementById(id);
-const zones=[{name:"Tokyo",flag:"🇯🇵",zone:"Asia/Tokyo",start:9,end:18,label:"09:00–18:00 JST"},{name:"London",flag:"🇬🇧",zone:"Europe/London",start:8,end:17,label:"08:00–17:00 UK"},{name:"New York",flag:"🇺🇸",zone:"America/New_York",start:8,end:17,label:"08:00–17:00 ET"}];
-const kills=[{name:"Asia",start:20,end:24},{name:"London",start:2,end:5},{name:"New York AM",start:7,end:10}];
-let fmt=localStorage.getItem("sigma-format")||"24",alerts=localStorage.getItem("sigma-alerts")==="yes",lastAlert="";
-function parts(d,z){let a=new Intl.DateTimeFormat("en-GB",{timeZone:z,hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(d),o={};a.forEach(x=>o[x.type]=x.value);return o}
-function mins(d,z){let p=parts(d,z);return +p.hour*60 + +p.minute}
-function time(d,z){return new Intl.DateTimeFormat("en-GB",{timeZone:z,hour:"2-digit",minute:"2-digit",hour12:fmt==="12"}).format(d)}
-function active(m,s,e){return m>=s*60&&m<e*60}
-function duration(ms){
- let total=Math.max(0,Math.floor(ms/1000));
- let h=Math.floor(total/3600),m=Math.floor((total%3600)/60),s=total%60;
- return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+const nyZone='America/New_York';
+const defaultKz=[{id:'asia',name:'ASIA',start:20,end:24},{id:'london',name:'LONDON',start:2,end:5},{id:'ny',name:'NEW YORK',start:7,end:10}];
+let kz=JSON.parse(localStorage.getItem('sigma-v2-kz')||'null')||defaultKz;
+let clockFmt=localStorage.getItem('sigma-v2-clock')||'24';
+let alertsOn=localStorage.getItem('sigma-v2-alerts')==='1';
+let lastNotice='';
+const pad=n=>String(n).padStart(2,'0');
+function zonedParts(date,zone){let p=new Intl.DateTimeFormat('en-US',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(date);let o={};p.forEach(x=>o[x.type]=x.value);return {year:+o.year,month:+o.month,day:+o.day,weekday:o.weekday,hour:+o.hour,minute:+o.minute,second:+o.second}}
+function localDateString(d){return new Intl.DateTimeFormat(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(d)}
+function fmtTime(d){return new Intl.DateTimeFormat(undefined,{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:clockFmt==='12'}).format(d)}
+function hms(ms){ms=Math.max(0,Math.floor(ms/1000));let h=Math.floor(ms/3600),m=Math.floor(ms%3600/60),s=ms%60;return `${pad(h)}:${pad(m)}:${pad(s)}`}
+function nyWallToDate(y,m,d,h){ // Iteratively map New York wall clock to an absolute instant; handles EST/EDT.
+ let guess=new Date(Date.UTC(y,m-1,d,h,0,0));
+ for(let i=0;i<3;i++){let p=zonedParts(guess,nyZone);let diff=(h-p.hour)*3600000;guess=new Date(guess.getTime()+diff)}
+ return guess;
 }
-function nyDateParts(date){
- let p=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",year:"numeric",month:"numeric",day:"numeric"}).formatToParts(date),o={};
- p.forEach(x=>o[x.type]=Number(x.value));return o;
-}
-function nyWallTime(y,mo,d,h){
- // Resolve a New York wall-clock time to a real instant, respecting EST/EDT.
- const target=Date.UTC(y,mo-1,d,h,0,0);let guess=target;
- for(let i=0;i<5;i++){
-  let p=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric",hourCycle:"h23"}).formatToParts(new Date(guess)),o={};
-  p.forEach(x=>o[x.type]=Number(x.value));
-  const represented=Date.UTC(o.year,o.month-1,o.day,o.hour,o.minute,o.second);
-  guess+=target-represented;
+function marketWindow(now){
+ let p=zonedParts(now,nyZone), day=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(p.weekday);
+ let minutes=p.hour*60+p.minute;
+ let isOpen=(day>0&&day<5)||(day===0&&minutes>=17*60)||(day===5&&minutes<17*60);
+ let start,end;
+ if(isOpen){
+  // Most recent Sunday 17:00 NY.
+  let back=(day===0?0:day)*86400000;
+  let sunday=new Date(now.getTime()-back);
+  let sp=zonedParts(sunday,nyZone);
+  start=nyWallToDate(sp.year,sp.month,sp.day,17);
+  if(day===0&&minutes<17*60) isOpen=false;
+  let daysToFri=(5-day+7)%7;
+  let fri=new Date(now.getTime()+daysToFri*86400000),fp=zonedParts(fri,nyZone);
+  end=nyWallToDate(fp.year,fp.month,fp.day,17);
+ }else{
+  // Find next Sunday 17:00 New York.
+  let days=(7-day)%7;
+  if(day===0&&minutes<17*60)days=0;
+  let sun=new Date(now.getTime()+days*86400000),sp=zonedParts(sun,nyZone);
+  start=nyWallToDate(sp.year,sp.month,sp.day,17);
+  if(start<=now){sun=new Date(sun.getTime()+7*86400000);sp=zonedParts(sun,nyZone);start=nyWallToDate(sp.year,sp.month,sp.day,17)}
+  end=new Date(start.getTime()+5*86400000);
  }
- return new Date(guess);
+ return {isOpen,start,end};
 }
-function getKillzoneWindows(now){
- const today=nyDateParts(now),base=new Date(Date.UTC(today.year,today.month-1,today.day)),all=[];
- for(let offset=-1;offset<=3;offset++){
-  const day=new Date(base);day.setUTCDate(day.getUTCDate()+offset);
-  const y=day.getUTCFullYear(),mo=day.getUTCMonth()+1,d=day.getUTCDate();
-  for(const k of kills){
-   const start=nyWallTime(y,mo,d,k.start);
-   const endDay=new Date(day);
-   if(k.end>=24)endDay.setUTCDate(endDay.getUTCDate()+1);
-   const endHour=k.end>=24?k.end-24:k.end;
-   const end=nyWallTime(endDay.getUTCFullYear(),endDay.getUTCMonth()+1,endDay.getUTCDate(),endHour);
-   all.push({name:k.name,start,end,dayKey:`${y}-${String(mo).padStart(2,"0")}-${String(d).padStart(2,"0")}`});
-  }
+function kzState(now){
+ let p=zonedParts(now,nyZone),minute=p.hour*60+p.minute+p.second/60;
+ let active=kz.find(k=>k.start<k.end?minute>=k.start*60&&minute<k.end*60:(minute>=k.start*60||minute<k.end*60));
+ let nextCandidates=[];
+ for(let k of kz){
+  let startMin=k.start*60,delta=(startMin-minute+1440)%1440;
+  if(delta<0.01)delta=1440;
+  nextCandidates.push({k,delta});
  }
- return all.sort((a,b)=>a.start-b.start);
+ nextCandidates.sort((a,b)=>a.delta-b.delta);
+ let next=nextCandidates[0];
+ let endAt=active?active.end*60:0;
+ let remaining=active?(endAt-minute+1440)%1440:0;
+ if(active&&remaining===0)remaining=1440;
+ let duration=active?((active.end-active.start+24)%24)*60:0;
+ let elapsed=active?duration-remaining:0;
+ return {active,next,remainingMs:remaining*60000,progress:active?Math.max(0,Math.min(100,elapsed/duration*100)):0,minute};
+}
+function renderKzList(now){
+ let st=kzState(now),market=marketWindow(now);
+ $('kzList').innerHTML=market.isOpen?kz.map(k=>{let on=st.active?.k.id===k.id;return `<div class="kzone"><div class="khead"><div><span class="dot ${on?'live':''}"></span><span class="kname">${k.name}</span></div><span class="pill ${on?'open':''}">${on?'ACTIVE':'SCHEDULED'}</span></div><div class="kmeta">${pad(k.start)}:00 – ${pad(k.end%24)}:00 New York local time</div></div>`}).join(''):'<div class="sub">Market closed for the weekend. Killzone timers resume when XAU/USD reopens.</div>';
 }
 function render(){
- let now=new Date(),localZone=Intl.DateTimeFormat().resolvedOptions().timeZone||"UTC";
- $("clock").textContent=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:fmt==="12"}).format(now);
- $("date").textContent=new Intl.DateTimeFormat("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(now);
- $("location").textContent=localZone.replaceAll("_"," ").toUpperCase();
- $("tz").textContent="UTC"+(new Intl.DateTimeFormat("en",{timeZoneName:"shortOffset"}).formatToParts(now).find(p=>p.type==="timeZoneName")?.value.replace("GMT","")||"");
-
- // Keep the original Tokyo/London/New York market-session section intact.
- $("sessions").innerHTML=zones.map(s=>{
-  let m=mins(now,s.zone),on=active(m,s.start,s.end);
-  return `<div class="row"><div><b>${s.flag} ${s.name}</b><div class="sub">${s.label} · ${time(now,s.zone)} local</div></div><span class="status ${on?"open":""}">${on?"● OPEN":"CLOSED"}</span></div>`;
- }).join("");
-
- // Active and next Killzone are calculated from New York local time (DST-aware).
- const windows=getKillzoneWindows(now);
- const activeKz=windows.find(w=>now>=w.start&&now<w.end);
- const nextKz=windows.find(w=>w.start>now);
- $("active").textContent=activeKz?activeKz.name:"—";
- $("activeDetail").textContent=activeKz?`Ends in ${duration(activeKz.end-now)}`:"No active killzone";
- $("next").textContent=nextKz?nextKz.name:"—";
- $("countdown").textContent=nextKz?`Opens in ${duration(nextKz.start-now)}`:"No upcoming killzone";
-
- // Show today's three Killzones. Before opening, count down to open;
- // while active, show time to close and an animated elapsed-time bar.
- const nyToday=nyDateParts(now);
- const todayKey=`${nyToday.year}-${String(nyToday.month).padStart(2,"0")}-${String(nyToday.day).padStart(2,"0")}`;
- const todayWindows=windows.filter(w=>w.dayKey===todayKey);
- $("killzones").innerHTML=todayWindows.map(w=>{
-  const on=now>=w.start&&now<w.end;
-  const upcoming=w.start>now;
-  const progress=on?Math.max(0,Math.min(100,(now-w.start)/(w.end-w.start)*100)):0;
-  let countdownText="";
-  if(on) countdownText=`${duration(w.end-now)} left to close`;
-  else if(upcoming) countdownText=`Opens in ${duration(w.start-now)}`;
-  else {
-   const tomorrow=windows.find(x=>x.name===w.name&&x.start>now&&x.dayKey!==todayKey);
-   countdownText=tomorrow?`Opens in ${duration(tomorrow.start-now)}`:"Closed";
-  }
-  const statusText=on?"● ACTIVE":upcoming?"UPCOMING":"CLOSED";
-  return `<div class="krow ${on?"active-kz":""}">
-   <div class="khead"><b>${w.name}</b><span class="status ${on?"open":""}">${statusText}</span></div>
-   <div class="kmeta"><span class="sub">${time(w.start,"America/New_York")}–${time(w.end,"America/New_York")} New York time</span><span class="kcount">${countdownText}</span></div>
-   ${on?`<div class="kbar"><div class="kfill" style="width:${progress}%"></div></div><div class="kmeta"><span class="sub">${Math.floor(progress)}% elapsed</span><span class="sub">${Math.ceil(100-progress)}% remaining</span></div>`:""}
-  </div>`;
- }).join("");
-
- if(alerts&&"Notification"in window&&Notification.permission==="granted"){
-  const key=now.toISOString().slice(0,10)+"-"+now.getUTCHours()+"-"+now.getUTCMinutes();
-  zones.forEach(s=>{let m=mins(now,s.zone);if(m===s.start*60&&lastAlert!==key+s.name){new Notification("Sigma Session",{body:s.name+" session is now open."});lastAlert=key+s.name}});
+ const now=new Date();$('clock').textContent=fmtTime(now);$('date').textContent=localDateString(now);
+ const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'Local timezone';$('tz').textContent=tz.replaceAll('_',' ').toUpperCase();
+ const market=marketWindow(now),st=kzState(now);
+ if(!market.isOpen){
+  $('marketBadge').textContent='MARKET CLOSED';$('marketBadge').className='pill closed';$('marketTitle').textContent='MARKET CLOSED';$('marketCaption').textContent='XAU/USD · WEEKEND';$('marketTimerLabel').textContent='MARKET OPENS IN';$('marketTimer').textContent=hms(market.start-now);$('marketProgress').style.width='0%';$('marketPct').textContent='WEEKEND';$('marketStart').textContent='CLOSED';$('marketEnd').textContent='NEXT OPEN';$('activePanel').style.display='none';$('activeKz').textContent='CLOSED';$('activeKzSub').textContent='Weekend mode';$('nextKz').textContent='—';$('nextKzSub').textContent='Resumes when market opens';$('nextName').textContent='Killzones paused';$('nextTime').textContent='Market closed';$('nextTimer').textContent='—';
+ }else{
+  $('marketBadge').textContent='MARKET OPEN';$('marketBadge').className='pill open';$('marketTitle').textContent='MARKET OPEN';$('marketCaption').textContent='XAU/USD · TRADING WEEK';$('marketTimerLabel').textContent='TIME UNTIL WEEKLY CLOSE';$('marketTimer').textContent=hms(market.end-now);let pct=(now-market.start)/(market.end-market.start)*100;$('marketProgress').style.width=Math.max(0,Math.min(100,pct))+'%';$('marketPct').textContent=Math.round(pct)+'%';$('marketStart').textContent='WEEK OPEN';$('marketEnd').textContent='WEEK CLOSE';$('activePanel').style.display='block';
+  if(st.active){$('activeKz').textContent=st.active.name;$('activeKzSub').textContent='Currently active';$('activeName').textContent=st.active.name+' KILLZONE';$('activeTimer').textContent=hms(st.remainingMs);$('kzProgress').style.width=st.progress+'%';$('kzPct').textContent=Math.round(st.progress)+'% COMPLETE';$('kzStart').textContent=pad(st.active.start)+':00';$('kzEnd').textContent=pad(st.active.end%24)+':00';$('activeBadge').textContent='● LIVE';}
+  else{$('activeKz').textContent='NONE';$('activeKzSub').textContent='No active window';$('activeName').textContent='NO ACTIVE KILLZONE';$('activeTimer').textContent='—';$('kzProgress').style.width='0%';$('kzPct').textContent='WAITING';$('kzStart').textContent='—';$('kzEnd').textContent='—';$('activeBadge').textContent='WAITING';}
+  $('nextKz').textContent=st.next.k.name;$('nextKzSub').textContent='Opens in '+hms(st.next.delta*60000);$('nextName').textContent=st.next.k.name+' KILLZONE';$('nextTime').textContent='New York local · '+pad(st.next.k.start)+':00';$('nextTimer').textContent=hms(st.next.delta*60000);
  }
+ renderKzList(now);
+ if(alertsOn&&'Notification'in window&&Notification.permission==='granted'&&st.active){let key=now.toISOString().slice(0,13)+st.active.k.id;if(lastNotice!==key){if(st.minute%60<1.1){new Notification('SIGMA SESSION',{body:st.active.k.name+' Killzone is active.'});lastNotice=key}}}
 }
-$("format").value=fmt;$("format").onchange=e=>{fmt=e.target.value;localStorage.setItem("sigma-format",fmt);render()};
-async function toggleAlerts(){
- if(!("Notification"in window)){ $("alertNote").textContent="Notifications are not supported by this browser.";return}
- if(!alerts){let p=await Notification.requestPermission();if(p!=="granted"){$("alertNote").textContent="Permission was not granted.";return}alerts=true;localStorage.setItem("sigma-alerts","yes");$("alerts").textContent="Disable alerts";$("alertNote").textContent="Session-open alerts enabled while the app is active."}
- else{alerts=false;localStorage.removeItem("sigma-alerts");$("alerts").textContent="Enable alerts";$("alertNote").textContent="Alerts are off."}
+function loadKzInputs(){let by={asia:'asiaStart',london:'londonStart',ny:'nyStart'};kz.forEach(k=>{if($(by[k.id]))$(by[k.id]).value=k.start});$('londonEnd').value=kz.find(k=>k.id==='london')?.end??5;$('nyEnd').value=kz.find(k=>k.id==='ny')?.end??10}
+$('saveKz').onclick=()=>{let vals={asia:+$('asiaStart').value,london:+$('londonStart').value,ny:+$('nyStart').value},ends={asia:24,london:+$('londonEnd').value,ny:+$('nyEnd').value};if(Object.values(vals).some(v=>!Number.isInteger(v)||v<0||v>23)||Object.values(ends).some(v=>!Number.isInteger(v)||v<1||v>24)){alert('Enter valid whole hours.');return}kz=[{id:'asia',name:'ASIA',start:vals.asia,end:ends.asia},{id:'london',name:'LONDON',start:vals.london,end:ends.london},{id:'ny',name:'NEW YORK',start:vals.ny,end:ends.ny}];localStorage.setItem('sigma-v2-kz',JSON.stringify(kz));render()};
+$('clockFormat').value=clockFmt;$('clockFormat').onchange=e=>{clockFmt=e.target.value;localStorage.setItem('sigma-v2-clock',clockFmt);render()};
+$('alertBtn').onclick=async()=>{if(!('Notification'in window)){ $('alertStatus').textContent='Notifications not supported in this browser.';return}let p=await Notification.requestPermission();if(p==='granted'){alertsOn=!alertsOn;localStorage.setItem('sigma-v2-alerts',alertsOn?'1':'0');$('alertBtn').textContent=alertsOn?'Disable':'Enable';$('alertStatus').textContent=alertsOn?'Enabled while app is active':'Disabled'}else $('alertStatus').textContent='Permission not granted'};
+$('alertBtn').textContent=alertsOn?'Disable':'Enable';$('alertStatus').textContent=alertsOn?'Enabled while app is active':'Browser permission required';
+function calculateLots(){
+ const balance=+$('balance').value,risk=+$('risk').value,entry=+$('entry').value,stop=+$('stop').value,pair=$('pair').value,err=$('calcError'),out=$('calcResult');
+ err.classList.remove('show');out.classList.remove('show');const fail=m=>{err.textContent=m;err.classList.add('show')};
+ if(!Number.isFinite(balance)||balance<=0)return fail('Enter an account balance greater than zero.');
+ if(!Number.isFinite(risk)||risk<=0||risk>100)return fail('Risk must be greater than 0% and no more than 100%.');
+ if(!Number.isFinite(entry)||entry<=0||!Number.isFinite(stop)||stop<=0)return fail('Enter valid positive entry and stop-loss prices.');
+ if(entry===stop)return fail('Entry and stop-loss prices cannot be the same.');
+ const riskCash=balance*risk/100,dist=Math.abs(entry-stop);let lossPerLot;
+ if(pair==='XAUUSD')lossPerLot=dist*100;
+ else{const pipSize=pair.endsWith('JPY')?0.01:0.0001,pips=dist/pipSize;let pipValue;if(['EURUSD','GBPUSD','AUDUSD','NZDUSD'].includes(pair))pipValue=10;else if(pair==='USDJPY')pipValue=1000/entry;else if(pair==='USDCAD')pipValue=10/entry;else if(pair==='USDCHF')pipValue=10*entry;else return fail('Instrument not supported.');lossPerLot=pips*pipValue}
+ if(!Number.isFinite(lossPerLot)||lossPerLot<=0)return fail('Could not calculate. Check prices.');
+ const raw=riskCash/lossPerLot,lots=Math.floor((raw+1e-10)*100)/100;
+ $('lots').textContent=lots<.01?'< 0.01 lots':lots.toFixed(2)+' lots';$('lotNote').textContent=`Raw size ${raw.toFixed(4)} · rounded down to 0.01 lot step`;$('riskNote').textContent=`Risk budget: $${riskCash.toFixed(2)} · Stop distance: ${dist}`;out.classList.add('show');
 }
-$("alerts").textContent=alerts?"Disable alerts":"Enable alerts";$("alerts").onclick=toggleAlerts;
-let installPrompt;$("install").onclick=async()=>{if(installPrompt){installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$("install").hidden=true}};
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;$("install").hidden=false});
-if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));
-render();setInterval(render,1000);
+$('calculate').onclick=calculateLots;['balance','risk','entry','stop','pair'].forEach(id=>$(id).addEventListener('input',()=>{$('calcResult').classList.remove('show');$('calcError').classList.remove('show')}));
+let events=JSON.parse(localStorage.getItem('sigma-v2-events')||'[]');
+function renderEvents(){events.sort((a,b)=>a.date.localeCompare(b.date));$('eventList').innerHTML=events.length?events.map((e,i)=>`<div class="event"><div class="marketline"><b>${escapeHtml(e.title)}</b><span class="tag">${e.impact.toUpperCase()}</span></div><div class="sub">${new Date(e.date).toLocaleString()}</div><button class="smallbtn" data-del="${i}" style="margin-top:8px">Remove</button></div>`).join(''):'<div class="sub">No events added yet.</div>';$('eventList').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{events.splice(+b.dataset.del,1);localStorage.setItem('sigma-v2-events',JSON.stringify(events));renderEvents()})}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('addEvent').onclick=()=>{let title=$('eventTitle').value.trim(),date=$('eventDate').value,impact=$('eventImpact').value;if(!title||!date){alert('Enter an event title and date/time.');return}events.push({title,date,impact});localStorage.setItem('sigma-v2-events',JSON.stringify(events));$('eventTitle').value='';$('eventDate').value='';renderEvents()};
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===b.dataset.view));window.scrollTo({top:0,behavior:'smooth'})});
+let deferredPrompt;$('installBtn').onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$('installBtn').hidden=true}};
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('installBtn').hidden=false});
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+loadKzInputs();renderEvents();render();setInterval(render,1000);
 </script>
 </body></html>
