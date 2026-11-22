@@ -30,12 +30,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 .timeline span:after{content:"";position:absolute;right:-5px;top:50%;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;background:#fff2bd;box-shadow:0 0 16px 5px #f2c65a;animation:linePulse 1.4s ease-in-out infinite}
 @keyframes linePulse{0%,100%{opacity:.85;transform:translateY(-50%) scale(.85)}50%{opacity:1;transform:translateY(-50%) scale(1.12)}}
 .timeline-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;letter-spacing:.06em}
-.brand img{display:none!important}.brand strong .gold{font-size:.68em;vertical-align:middle;letter-spacing:.08em}
+.brand img{display:none!important}.brand-title{font-size:clamp(19px,5.4vw,24px)!important;letter-spacing:.15em!important;font-weight:950!important;line-height:1.05}.brand-tools{color:var(--gold2);font-size:1.08em;letter-spacing:.18em;text-shadow:0 0 16px #e3b84f55}.brand-v2{display:inline-block;margin-left:7px;color:#8e8267;font-size:.48em;letter-spacing:.08em;vertical-align:top;transform:translateY(-2px)}.brand small{font-size:9px;letter-spacing:.22em;margin-top:5px}
 .sectiontitle{font-size:13px;font-weight:850;letter-spacing:.12em;margin:0 0 12px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #29261f}.row:last-child{border:0}.row b{font-size:14px}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#11110f;border:1px solid #30291c;border-radius:15px;padding:13px}.stat small{color:var(--muted);font-size:10px;letter-spacing:.1em}.stat strong{display:block;font-size:24px;margin-top:5px;font-variant-numeric:tabular-nums}
-.kzone{padding:13px 0;border-bottom:1px solid #29261f}.kzone:last-child{border:0}.khead{display:flex;justify-content:space-between;align-items:center;gap:10px}.kname{font-weight:800}.kmeta{color:var(--muted);font-size:11px;margin-top:4px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#777;margin-right:7px}.dot.live{background:var(--green);box-shadow:0 0 0 0 #67e3a088;animation:pulse 1.8s infinite}@keyframes pulse{70%{box-shadow:0 0 0 9px #67e3a000}}
+.kzone{padding:13px 0;border-bottom:1px solid #29261f}.kzone:last-child{border:0}.khead{display:flex;justify-content:space-between;align-items:center;gap:10px}.kname{font-weight:800}.kmeta{color:var(--muted);font-size:11px;margin-top:4px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#777;margin-right:7px}.dot.live{background:var(--green);box-shadow:0 0 0 0 #67e3a088;animation:pulse 1.8s infinite}.pill.paused{background:#28231a;color:#b8a987;border:1px solid #51452e}.kzone.paused{opacity:.58}@keyframes pulse{70%{box-shadow:0 0 0 9px #67e3a000}}
 .nav{position:fixed;z-index:20;bottom:0;left:0;right:0;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:#090909ed;backdrop-filter:blur(18px);border-top:1px solid #3c321e;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}.nav button{border:0;background:transparent;color:#969188;border-radius:12px;padding:8px 2px;font-size:10px;font-weight:700}.nav button span{display:block;font-size:19px;margin-bottom:3px}.nav button.active{color:var(--gold2);background:#282012}
 .view{display:none}.view.active{display:block}.field{margin:12px 0}.field label{display:block;color:#d1c7b3;font-size:11px;font-weight:750;letter-spacing:.07em;margin:0 0 7px}.field input,.field select{width:100%;background:#0b0b0a;color:var(--text);border:1px solid #49402d;border-radius:11px;padding:13px 12px;outline:none}.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px #e3b84f18}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{width:100%;border:1px solid #f1d28b;border-radius:12px;padding:14px;background:linear-gradient(100deg,#f0d99f,#c99a3b);color:#21190b;font-size:12px;font-weight:900;letter-spacing:.12em;margin-top:8px}.result{display:none;margin-top:14px;background:#0b1711;border:1px solid #286347;border-radius:14px;padding:16px;text-align:center}.result.show{display:block}.lotvalue{font-size:40px;font-weight:900;color:var(--green);font-variant-numeric:tabular-nums}.warning{display:none;background:#351d23;border:1px solid #713c45;color:#ffd5d5;padding:11px;border-radius:10px;font-size:12px;margin-top:10px}.warning.show{display:block}
-.smallbtn{background:#211d14;color:var(--gold2);border:1px solid #5b4828;border-radius:9px;padding:9px 11px;font-size:11px;font-weight:750}.muted{color:var(--muted)}.foot{text-align:center;color:#777064;font-size:10px;letter-spacing:.12em;padding:24px 5px}.event{padding:12px 0;border-bottom:1px solid #29261f}.event:last-child{border:0}.tag{font-size:9px;border:1px solid #6b5127;color:var(--gold2);padding:4px 7px;border-radius:20px}
+.smallbtn{background:#211d14;color:var(--gold2);border:1px solid #5b4828;border-radius:9px;padding:9px 11px;font-size:11px;font-weight:750}.muted{color:var(--muted)}.foot{text-align:center;color:#777064;font-size:10px;letter-spacing:.12em;padding:24px 5px}.event{padding:12px 0;border-bottom:1px solid #29261f}.event:last-child{border:0}.tv-calendar-wrap{width:100%;height:clamp(520px,76vh,760px);min-height:520px;overflow:auto;border-radius:12px;background:#0b0b0b;overscroll-behavior:contain}.tv-calendar-wrap tv-economic-calendar{display:block;width:100%;height:100%;min-height:520px}.tag{font-size:9px;border:1px solid #6b5127;color:var(--gold2);padding:4px 7px;border-radius:20px}
 @media(min-width:560px){main{padding-top:25px}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.two .panel{margin:12px 0}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
@@ -43,7 +43,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 <body>
 <main>
 <header>
- <div class="brand"><div><strong>SIGMA SESSION <span class="gold">V2</span></strong></div></div>
+ <div class="brand"><div><strong class="brand-title">SIGMA <span class="brand-tools">TOOLS</span><span class="brand-v2">V2</span></strong><small>ICT TRADING COMPANION</small></div></div>
  <button class="iconbtn" id="installBtn" hidden>＋ Install</button>
 </header>
 
@@ -60,10 +60,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
   <div class="progress"><span id="marketProgress"></span></div>
   <div class="progresslabels"><span id="marketStart">MARKET OPEN</span><span id="marketPct">—</span><span id="marketEnd">MARKET CLOSE</span></div>
  </section>
- <div class="statgrid">
-  <div class="stat"><small>ACTIVE SESSION</small><strong id="activeSessionMini">—</strong><div class="sub" id="activeSessionMiniSub">—</div></div>
-  <div class="stat"><small>NEXT SESSION</small><strong id="nextSessionMini">—</strong><div class="sub" id="nextSessionMiniSub">—</div></div>
- </div>
  <section class="panel" id="activePanel">
   <div class="marketline"><h2 class="sectiontitle">✦ ACTIVE KILLZONE</h2><span class="pill open" id="activeBadge">LIVE TRACKING</span></div>
   <div class="markettitle gold" id="activeName">—</div>
@@ -92,11 +88,10 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 
 <section id="calendar" class="view">
  <section class="panel">
-  <div class="marketline"><h2 class="sectiontitle">ECONOMIC CALENDAR</h2><span class="tag" id="calendarStatus">NOT CONNECTED</span></div>
-  <div class="field"><label>FINANCE CALENDAR API KEY</label><input id="calendarKey" type="password" autocomplete="off" placeholder="Paste API key"></div>
-  <div class="grid2"><button class="btn" id="saveCalendarKey">SAVE KEY</button><button class="smallbtn" id="refreshCalendar">REFRESH EVENTS</button></div>
-  <div id="eventList" style="margin-top:14px"></div>
-  <div class="sub" style="margin-top:12px">Data by <a href="https://www.financecalendar.com" target="_blank" rel="noopener" style="color:var(--gold2)">Finance Calendar</a>.</div>
+  <div class="marketline"><h2 class="sectiontitle">ECONOMIC CALENDAR</h2><span class="tag">USD · HIGH IMPACT</span></div>
+  <div class="tv-calendar-wrap">
+   <tv-economic-calendar countries="us" theme="dark" timezone="Africa/Addis_Ababa"></tv-economic-calendar>
+  </div>
  </section>
 </section>
 
@@ -113,7 +108,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 
 <section id="settings" class="view">
  <section class="panel"><h2 class="sectiontitle">APP SETTINGS</h2>
-  <div class="row"><div><b>Clock format</b><div class="sub">12-hour or 24-hour local time</div></div><select id="clockFormat"><option value="24">24-hour</option><option value="12">12-hour</option></select></div>
+  <div class="row"><div><b>Clock format</b><div class="sub">Addis Ababa time · EAT</div></div><select id="clockFormat"><option value="24">24-hour</option><option value="12">12-hour</option></select></div>
   <div class="row"><div><b>Session notifications</b><div class="sub" id="alertStatus">Browser notification permission required</div></div><button class="smallbtn" id="alertBtn">Enable</button></div>
   
   <div class="row"><div><b>App version</b><span class="sub">Independent V2 PWA · V1 archive preserved</span></div><span class="gold">V2.0</span></div>
@@ -130,9 +125,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
  <button data-view="settings"><span>⚙</span>Settings</button>
 </nav>
 
+<script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-economic-calendar.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const nyZone='America/New_York';
+const eatZone='Africa/Addis_Ababa';
 const defaultKz=[
  {id:'asia',name:'ASIAN KILLZONE',start:19,end:22},
  {id:'london',name:'LONDON OPEN',start:2,end:5},
@@ -152,8 +149,11 @@ let alertsOn=localStorage.getItem('sigma-v2-alerts')==='1';
 let lastNotice='';
 const pad=n=>String(n).padStart(2,'0');
 function zonedParts(date,zone){let p=new Intl.DateTimeFormat('en-US',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(date);let o={};p.forEach(x=>o[x.type]=x.value);return {year:+o.year,month:+o.month,day:+o.day,weekday:o.weekday,hour:+o.hour,minute:+o.minute,second:+o.second}}
-function localDateString(d){return new Intl.DateTimeFormat(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(d)}
-function fmtTime(d){return new Intl.DateTimeFormat(undefined,{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:clockFmt==='12'}).format(d)}
+function localDateString(d){return new Intl.DateTimeFormat('en-ET',{timeZone:eatZone,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(d)}
+function fmtTime(d){return new Intl.DateTimeFormat('en-ET',{timeZone:eatZone,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:clockFmt==='12'}).format(d)}
+function eatOffsetHours(now){const z=new Intl.DateTimeFormat('en-US',{timeZone:nyZone,timeZoneName:'short'}).formatToParts(now).find(x=>x.type==='timeZoneName')?.value;return z==='EDT'?7:8}
+function eatHourLabel(hour,now=new Date()){let h=(hour+eatOffsetHours(now))%24;let mins=Math.round((hour-Math.floor(hour))*60);if(mins===60){h=(h+1)%24;mins=0}return pad(h)+':'+pad(mins)}
+
 function hms(ms){ms=Math.max(0,Math.floor(ms/1000));let h=Math.floor(ms/3600),m=Math.floor(ms%3600/60),s=ms%60;return `${pad(h)}:${pad(m)}:${pad(s)}`}
 function nyWallToDate(y,m,d,h){ // Iteratively map New York wall clock to an absolute instant; handles EST/EDT.
  let guess=new Date(Date.UTC(y,m-1,d,h,0,0));
@@ -196,34 +196,34 @@ function windowState(items,now){
 function kzState(now){return windowState(kz,now)}
 function sessionState(now){return windowState(sessions,now)}
 function timeLabel(hour){let h=Math.floor(hour)%24,m=Math.round((hour-Math.floor(hour))*60);return pad(h)+':'+pad(m)}
-function renderKzList(now){
+function renderKzList(now,marketOpen){
  let st=kzState(now);
- $('kzList').innerHTML=kz.map(k=>{let on=st.active.some(x=>x.id===k.id);return `<div class="kzone"><div class="khead"><div><span class="dot ${on?'live':''}"></span><span class="kname">${k.name}</span></div><span class="pill ${on?'open':''}">${on?'ACTIVE':'SCHEDULED'}</span></div><div class="kmeta">${timeLabel(k.start)} – ${timeLabel(k.end)} New York time</div></div>`}).join('');
+ $('kzList').innerHTML=kz.map(k=>{let on=marketOpen&&st.active.some(x=>x.id===k.id);let status=!marketOpen?'PAUSED':on?'ACTIVE':'SCHEDULED';return `<div class="kzone ${!marketOpen?'paused':''}"><div class="khead"><div><span class="dot ${on?'live':''}"></span><span class="kname">${k.name}</span></div><span class="pill ${on?'open':!marketOpen?'paused':''}">${status}</span></div><div class="kmeta">${eatHourLabel(k.start,now)} – ${eatHourLabel(k.end,now)} · ADDIS ABABA</div></div>`}).join('');
 }
 function setLine(id,pct){let el=$(id);if(el)el.style.width=Math.max(0,Math.min(100,pct||0))+'%'}
 function render(){
  const now=new Date();$('clock').textContent=fmtTime(now);$('date').textContent=localDateString(now);
- const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'Local timezone';$('tz').textContent=tz.replaceAll('_',' ').toUpperCase();
+ $('tz').textContent='ADDIS ABABA · EAT (UTC+3)';
  const market=marketWindow(now),st=kzState(now),ss=sessionState(now);
  if(!market.isOpen){
   $('marketBadge').textContent='MARKET CLOSED';$('marketBadge').className='pill closed';$('marketTitle').textContent='MARKET CLOSED';$('marketCaption').textContent='XAU/USD · WEEKEND';$('marketTimerLabel').textContent='MARKET OPENS IN';$('marketTimer').textContent=hms(market.start-now);
   let pct=Math.max(0,Math.min(100,((now-(market.start-2*86400000))/(2*86400000))*100));setLine('marketProgress',pct);$('marketPct').textContent=Math.round(pct)+'%';$('marketStart').textContent='WEEKEND START';$('marketEnd').textContent='MARKET OPEN';
   $('activePanel').style.display='none';$('nextKzPanel').style.display='none';
   $('activeSessionName').textContent='MARKET CLOSED';$('activeSessionTimer').textContent='—';setLine('sessionProgress',0);$('sessionStart').textContent='—';$('sessionPct').textContent='CLOSED';$('sessionEnd').textContent='—';
-  $('activeSessionMini').textContent='CLOSED';$('activeSessionMiniSub').textContent='Weekend';$('nextSessionMini').textContent='—';$('nextSessionMiniSub').textContent='Resumes at reopen';
+  
   $('nextSessionName').textContent='SESSIONS PAUSED';$('nextSessionTime').textContent='Market closed';$('nextSessionTimer').textContent='—';setLine('nextSessionProgress',0);$('nextSessionPct').textContent='PAUSED';
  }else{
   $('marketBadge').textContent='MARKET OPEN';$('marketBadge').className='pill open';$('marketTitle').textContent='MARKET OPEN';$('marketCaption').textContent='XAU/USD · TRADING WEEK';$('marketTimerLabel').textContent='TIME UNTIL WEEKLY CLOSE';$('marketTimer').textContent=hms(market.end-now);
   let pct=(now-market.start)/(market.end-market.start)*100;setLine('marketProgress',pct);$('marketPct').textContent=Math.round(pct)+'%';$('marketStart').textContent='WEEK OPEN';$('marketEnd').textContent='WEEK CLOSE';
   $('activePanel').style.display='block';$('nextKzPanel').style.display='block';
-  if(st.active.length){let k=st.active[0];$('activeName').textContent=k.name;$('activeTimer').textContent=hms(st.remainingMs);setLine('kzProgress',st.progress);$('kzPct').textContent=Math.round(st.progress)+'%';$('kzStart').textContent=timeLabel(k.start);$('kzEnd').textContent=timeLabel(k.end);$('activeBadge').textContent='● LIVE';}
+  if(st.active.length){let k=st.active[0];$('activeName').textContent=k.name;$('activeTimer').textContent=hms(st.remainingMs);setLine('kzProgress',st.progress);$('kzPct').textContent=Math.round(st.progress)+'%';$('kzStart').textContent=eatHourLabel(k.start,now);$('kzEnd').textContent=eatHourLabel(k.end,now);$('activeBadge').textContent='● LIVE';}
   else{$('activeName').textContent='NO ACTIVE KILLZONE';$('activeTimer').textContent='—';setLine('kzProgress',0);$('kzPct').textContent='WAITING';$('kzStart').textContent='—';$('kzEnd').textContent='—';$('activeBadge').textContent='WAITING'}
-  $('nextName').textContent=st.next.k.name;$('nextTime').textContent='New York · '+timeLabel(st.next.k.start);$('nextTimer').textContent=hms(st.next.delta*60000);setLine('nextKzProgress',Math.max(2,100-st.next.delta*60000/86400000*100));$('nextKzPct').textContent='OPENS IN '+hms(st.next.delta*60000);
-  if(ss.active.length){let names=ss.active.map(x=>x.name.replace(' SESSION','')).join(' + '),s=ss.active[0];$('activeSessionName').textContent=names;$('activeSessionTimer').textContent=hms(ss.remainingMs);setLine('sessionProgress',ss.progress);$('sessionPct').textContent=Math.round(ss.progress)+'%';$('sessionStart').textContent=timeLabel(s.start);$('sessionEnd').textContent=timeLabel(s.end);$('activeSessionMini').textContent=names;$('activeSessionMiniSub').textContent='Currently active';}
-  else{$('activeSessionName').textContent='NO ACTIVE SESSION';$('activeSessionTimer').textContent='—';setLine('sessionProgress',0);$('sessionPct').textContent='WAITING';$('sessionStart').textContent='—';$('sessionEnd').textContent='—';$('activeSessionMini').textContent='NONE';$('activeSessionMiniSub').textContent='Between sessions'}
-  $('nextSessionName').textContent=ss.next.k.name;$('nextSessionTime').textContent='New York · '+timeLabel(ss.next.k.start);$('nextSessionTimer').textContent=hms(ss.next.delta*60000);setLine('nextSessionProgress',Math.max(2,100-ss.next.delta*60000/86400000*100));$('nextSessionPct').textContent='OPENS IN '+hms(ss.next.delta*60000);$('nextSessionMini').textContent=ss.next.k.name.replace(' SESSION','');$('nextSessionMiniSub').textContent='Opens in '+hms(ss.next.delta*60000);
+  $('nextName').textContent=st.next.k.name;$('nextTime').textContent='OPENS '+eatHourLabel(st.next.k.start,now)+' · EAT';$('nextTimer').textContent=hms(st.next.delta*60000);setLine('nextKzProgress',Math.max(2,100-st.next.delta*60000/86400000*100));$('nextKzPct').textContent='OPENS IN '+hms(st.next.delta*60000);
+  if(ss.active.length){let names=ss.active.map(x=>x.name.replace(' SESSION','')).join(' + '),s=ss.active[0];$('activeSessionName').textContent=names;$('activeSessionTimer').textContent=hms(ss.remainingMs);setLine('sessionProgress',ss.progress);$('sessionPct').textContent=Math.round(ss.progress)+'%';$('sessionStart').textContent=eatHourLabel(s.start,now);$('sessionEnd').textContent=eatHourLabel(s.end,now);}
+  else{$('activeSessionName').textContent='NO ACTIVE SESSION';$('activeSessionTimer').textContent='—';setLine('sessionProgress',0);$('sessionPct').textContent='WAITING';$('sessionStart').textContent='—';$('sessionEnd').textContent='—';}
+  $('nextSessionName').textContent=ss.next.k.name;$('nextSessionTime').textContent='OPENS '+eatHourLabel(ss.next.k.start,now)+' · EAT';$('nextSessionTimer').textContent=hms(ss.next.delta*60000);setLine('nextSessionProgress',Math.max(2,100-ss.next.delta*60000/86400000*100));$('nextSessionPct').textContent='OPENS IN '+hms(ss.next.delta*60000);
  }
- renderKzList(now);
+ renderKzList(now,market.isOpen);
 }
 $('clockFormat').value=clockFmt;$('clockFormat').onchange=e=>{clockFmt=e.target.value;localStorage.setItem('sigma-v2-clock',clockFmt);render()};
 $('alertBtn').onclick=async()=>{
@@ -256,38 +256,10 @@ function calculateLots(){
  $('lots').textContent=lots<.01?'< 0.01 lots':lots.toFixed(2)+' lots';$('lotNote').textContent=`Raw size ${raw.toFixed(4)} · rounded down to 0.01 lot step`;$('riskNote').textContent=`Risk budget: $${riskCash.toFixed(2)} · Stop distance: ${dist}`;out.classList.add('show');
 }
 $('calculate').onclick=calculateLots;['balance','risk','entry','stop','pair'].forEach(id=>$(id).addEventListener('input',()=>{$('calcResult').classList.remove('show');$('calcError').classList.remove('show')}));
-let calendarKey=localStorage.getItem('sigma-v2-calendar-key')||'';
-$('calendarKey').value=calendarKey;
-let calendarEvents=JSON.parse(localStorage.getItem('sigma-v2-calendar-cache')||'[]');
-function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function renderEvents(){
- const host=$('eventList');
- host.innerHTML=calendarEvents.length?calendarEvents.map(e=>{
-  const when=e.release_at_utc?new Date(e.release_at_utc).toLocaleString(undefined,{timeZone:'Africa/Addis_Ababa',weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):e.date+' · TIME TBA';
-  const impact=(e.impact||'UNRATED').toUpperCase();
-  const figures=[['ACTUAL',e.actual],['FORECAST',e.consensus],['PREVIOUS',e.prior]].filter(x=>x[1]!==undefined&&x[1]!==null);
-  const figureHtml=figures.length?`<div class="marketline" style="margin-top:7px">${figures.map(x=>`<span class="sub">${x[0]} <b>${escapeHtml(x[1])}</b></span>`).join('')}</div>`:'';
-  return `<div class="event"><div class="marketline"><b>${escapeHtml(e.name||e.title)}</b><span class="tag">${escapeHtml(impact)}</span></div><div class="sub">${escapeHtml(when)} EAT</div>${figureHtml}</div>`;
- }).join(''):'<div class="sub">Connect an API key to load upcoming US events.</div>';
-}
-async function refreshCalendar(){
- if(!calendarKey){$('calendarStatus').textContent='API KEY REQUIRED';renderEvents();return}
- $('calendarStatus').textContent='UPDATING…';
- try{
-  const from=new Date().toISOString().slice(0,10),to=new Date(Date.now()+6*86400000).toISOString().slice(0,10);
-  const url=`https://www.financecalendar.com/wp-json/fc/v1/calendar?from=${from}&to=${to}&country=US&impact=high,medium&tz=Africa%2FAddis_Ababa&limit=20&format=json`;
-  const res=await fetch(url,{headers:{'X-API-Key':calendarKey}});
-  if(!res.ok)throw new Error(res.status===401?'API key invalid':res.status===403?'API quota/access limit reached':`Calendar error ${res.status}`);
-  const data=await res.json();calendarEvents=(data.events||[]).filter(e=>e.country==='US');
-  localStorage.setItem('sigma-v2-calendar-cache',JSON.stringify(calendarEvents));$('calendarStatus').textContent='UPDATED';renderEvents();
- }catch(err){$('calendarStatus').textContent='OFFLINE / ERROR';$('eventList').innerHTML=`<div class="sub">${escapeHtml(err.message)} · Showing saved events.</div>`+calendarEvents.map(e=>`<div class="event"><b>${escapeHtml(e.name||e.title)}</b><div class="sub">${escapeHtml(e.date)}</div></div>`).join('')}
-}
-$('saveCalendarKey').onclick=()=>{calendarKey=$('calendarKey').value.trim();localStorage.setItem('sigma-v2-calendar-key',calendarKey);refreshCalendar()};
-$('refreshCalendar').onclick=refreshCalendar;renderEvents();if(calendarKey)refreshCalendar();
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===b.dataset.view));window.scrollTo({top:0,behavior:'smooth'})});
 let deferredPrompt;$('installBtn').onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$('installBtn').hidden=true}};
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('installBtn').hidden=false});
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
-renderEvents();render();setInterval(()=>{render();checkSessionAlarm()},1000);if(calendarKey)setInterval(refreshCalendar,60*60*1000);
+render();setInterval(()=>{render();checkSessionAlarm()},1000);
 </script>
 </body></html>

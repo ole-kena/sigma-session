@@ -18,16 +18,18 @@ Included in this update:
 - Dashboard now shows Active Session and Next Session.
 - Added animated gold timelines and live countdowns for market open/close, active Killzone, next Killzone, active Session and next Session.
 - Market closed mode counts down to the next market open; market open mode counts down to weekly close.
-- Integrated automatic US economic-calendar fetching through Finance Calendar API. Save an API key in the Calendar tab. The app refreshes hourly while open and also supports manual refresh.
-- Calendar displays Ethiopia time (Africa/Addis_Ababa), event impact, and actual/forecast/previous values when supplied by the selected API plan.
+- Integrated the free TradingView Economic Calendar widget using the user-provided embed code. No Finance Calendar API key or paid API subscription is required.
+- Widget configuration: US events, high-importance-only, dark theme. The widget controls its own displayed fields, event refresh behavior, and timezone presentation. Verify the displayed timezone on the device; this embed code does not explicitly set Africa/Addis_Ababa.
 - Removed manual event-entry UI and unnecessary descriptive copy.
 - Kept the integrated lot-size calculator and original app navigation.
 
-ECONOMIC CALENDAR SETUP:
-1. Create an API account/key at https://www.financecalendar.com/api/
-2. Paste the key into the Calendar tab and press SAVE KEY.
-3. The API requires a key. Free Developer access is schedule-only, limited to 100 successful schedule responses per month / 10 per day, next 7 days, max 20 events per response, and does not include numerical actual/forecast/previous values. Paid plans add numerical fields. Review the provider's current terms and prices before choosing a plan.
-4. The calendar uses US events with high and medium impact. It is a Forex Factory-style calendar experience, but the data provider is Finance Calendar, not Forex Factory. Do not treat this as an official Forex Factory feed.
+ECONOMIC CALENDAR:
+- Uses the exact TradingView custom-element embed supplied by the user:
+  <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-economic-calendar.js"></script>
+  <tv-economic-calendar countries="us" high-importance-only theme="dark"></tv-economic-calendar>
+- No API key or paid calendar subscription is configured in this build.
+- The calendar widget requires an internet connection and loads from TradingView. Its availability and displayed data are controlled by TradingView.
+- The supplied embed sets US events, high-importance-only, and dark theme. It does not explicitly set a timezone or medium-impact events.
 
 ALARM LIMITATION:
 - PWA notifications can alert when the app is running and notification permission is granted.
@@ -48,7 +50,8 @@ LOT CALCULATOR:
 TESTING:
 - HTML/JavaScript syntax check passed.
 - ZIP integrity check passed after packaging.
-- This is not yet a complete real-device QA pass. Test the dashboard, timezone/DST transitions, API key connection and alarms on the Galaxy A15 before relying on it.
+- This is not yet a complete real-device QA pass. Test the dashboard, timezone/DST transitions, TradingView widget loading and alarms on the Galaxy A15 before relying on it.
 - Install/host from HTTPS for PWA functionality and service worker support.
 
 The supplied V1 archive remains untouched.
+\n\nV2 UPDATE: Dashboard branding is SIGMA TOOLS (V2 small). App clock, killzone labels, session labels and schedule list are rendered in Africa/Addis_Ababa (EAT, UTC+3). Killzone list shows PAUSED while XAUUSD market is closed. Home dashboard separates Active Killzone, Next Killzone, Active Session and Next Session. TradingView calendar timezone attribute is set to Africa/Addis_Ababa where supported by the widget.\n
